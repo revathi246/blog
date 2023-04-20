@@ -1,0 +1,43 @@
+<style>
+thead{
+	background-color:teal;
+	color: white;
+}
+</style>
+<div>
+ <%= form_tag articles_path, :method=>'get' do %>
+ <form><%= text_field_tag :search, params[:search] %>
+ <button class="btn btn-outline-primary" type="submit">Search</button>
+
+ <%end %></form>
+
+ <br>
+
+<table class="table table-striped table-bordered">
+	<thead >
+		<tr>
+			<th>Title</th>
+			<th>Description</th>
+			<th colspan="3"></th>
+			
+		</tr>
+	</thead>
+
+   <tbody>
+   <% @articles.each do |article| %>
+   	   <tr>
+   		   <td><%=article.title %></td>
+   		   <td><%=article.description %></td>
+   		   <td><%=link_to 'Show',article_path(article)%></td>
+   		   <td><%=link_to 'Edit',edit_article_path(article)%></td>
+   		   <td><%=link_to 'Delete', article_path(article), data: { "turbo-method": :delete,turbo_confirm: "Are you sure?" } %></td>
+   	   </tr>
+
+   <%end %>
+
+   </tbody>
+
+</table>
+<p>
+<%=link_to'new article',new_article_path ,class:"btn btn-secondary"%>
+</p>
